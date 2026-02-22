@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <title>모바일 청첩장</title>
+  <meta name="description" content="모바일 웨딩 초대장">
+  <style>
+    @font-face {
+      font-family: "ClovaNanumKimYui";
+      src: url("./assets/fonts/ClovaNanum-KimYui.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-ivory: #ecf8f6;
+      --bg-peach: #bedfd7;
+      --text-main: #20343a;
+      --text-soft: #3e5e62;
+      --card: rgba(238, 252, 250, 0.86);
+      --line: rgba(52, 104, 108, 0.2);
+      --accent: #4b9da8;
+      --accent-strong: #2e7b85;
+      --shadow: 0 16px 36px rgba(26, 74, 79, 0.14);
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      color: var(--text-main);
+      background: linear-gradient(145deg, #88c5c7 0%, #9ed2ba 35%, #d7f0e3 100%);
+      font-family: "ClovaNanumKimYui", serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.58), transparent 28%),
+        radial-gradient(circle at 85% 22%, rgba(182, 234, 219, 0.62), transparent 35%),
+        radial-gradient(circle at 50% 86%, rgba(206, 239, 245, 0.4), transparent 40%);
+      z-index: 0;
+    }
+
+    .page {
+      width: min(100%, 460px);
+      margin: 0 auto;
+      padding: 18px 16px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.84), rgba(231, 245, 239, 0.78)),
+        url("./flower_basket.png") center center / cover no-repeat;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      margin-bottom: 14px;
+      animation: rise 0.6s ease-out both;
+      transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+    }
+
+    section:nth-child(2) { animation-delay: 0.08s; }
+    section:nth-child(3) { animation-delay: 0.14s; }
+    section:nth-child(4) { animation-delay: 0.2s; }
+    section:nth-child(5) { animation-delay: 0.26s; }
+    section:nth-child(6) { animation-delay: 0.32s; }
+    section:nth-child(7) { animation-delay: 0.38s; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .title {
+      text-align: center;
+      padding: 28px 18px;
+      background:
+        linear-gradient(160deg, rgba(250, 252, 248, 0.78), rgba(230, 245, 238, 0.72)),
+        url("./flower_basket.png") center center / cover no-repeat;
+      position: relative;
+      overflow: visible;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-family: "ClovaNanumKimYui", serif;
+      font-size: clamp(68px, 18vw, 88px);
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.2;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title p,
+    .title .divider {
+      position: relative;
+      z-index: 1;
+    }
+
+    .title p {
+      margin: 8px 0 0;
+      color: var(--text-soft);
+      font-size: 30px;
+    }
+
+    .divider {
+      width: 72px;
+      height: 2px;
+      margin: 14px auto;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    p {
+      margin: 0;
+      line-height: 1.65;
+      color: var(--text-main);
+      font-size: 30px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .couple-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .person-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      text-align: center;
+    }
+
+    .person-emoji {
+      display: block;
+      font-size: 48px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(228, 247, 241, 0.88));
+    }
+
+    .label {
+      font-size: 24px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .value {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .contact-text {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      color: var(--text-main);
+      font-size: 24px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      padding: 7px 12px;
+      line-height: 1.2;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .contact-text:link,
+    .contact-text:visited,
+    .contact-text:hover,
+    .contact-text:active {
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .contact-text:active {
+      transform: translateY(1px) scale(0.99);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fffaf4;
+      padding: 11px 16px;
+      font-size: 28px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .btn-secondary {
+      background: rgba(148, 88, 58, 0.1);
+      color: var(--accent-strong);
+      border: 1px solid rgba(148, 88, 58, 0.24);
+    }
+
+    .btn-row {
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-row-bleed {
+      width: calc(100% + 36px);
+      margin-left: -18px;
+      margin-right: -18px;
+    }
+
+      .btn-row-bleed .btn-block {
+        border-radius: 0;
+        min-height: 48px;
+      }
+
+      #open-map-btn.map-round {
+        border-radius: 999px;
+        width: calc(100% - 20px);
+        margin: 0 10px;
+      }
+
+    .message {
+      text-align: center;
+      font-size: 28px;
+      line-height: 1.86;
+      padding: 0 2px;
+    }
+
+    .couple-heading {
+      margin: 0 0 12px;
+      text-align: center;
+    }
+
+    .invite-group {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .invite-heading {
+      margin: 0 0 12px;
+      text-align: center;
+    }
+
+    .message-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 14px 12px 0;
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      margin-top: 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .thumb {
+      display: block;
+      border: 0;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      background: #f3ece4;
+      aspect-ratio: 1 / 1;
+      box-shadow: 0 6px 14px rgba(45, 30, 20, 0.14);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .thumb:active img {
+      transform: scale(1.06);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 8, 6, 0.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+      padding: 20px;
+    }
+
+    .lightbox.open {
+      display: flex;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .lightbox-content {
+      width: min(100%, 520px);
+      max-height: 86vh;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.46);
+      background: #fff;
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      max-height: 86vh;
+      object-fit: contain;
+      background: #0f0d0c;
+      display: block;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      color: #2f2520;
+      font-size: 44px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .parking-note {
+      color: var(--text-soft);
+      font-size: 26px;
+      margin-top: 8px;
+    }
+
+    .mini-map {
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff7ee;
+      overflow: hidden;
+    }
+
+    @media (max-width: 767px) {
+      body {
+        overflow: hidden;
+      }
+
+      .page {
+        width: min(100%, 460px);
+        height: 100svh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 12px 16px;
+        scroll-snap-type: y mandatory;
+        scroll-padding-top: 10px;
+        overscroll-behavior-y: contain;
+      }
+
+      section {
+        min-height: calc(100svh - 20px);
+        margin-bottom: 10px;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        opacity: 0.2;
+        transform: scale(0.985);
+        filter: blur(0.5px);
+        animation: none;
+      }
+
+      section.in-view {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+
+      .title,
+      section.couple-invite-section {
+        justify-content: center;
+      }
+
+      section.photo-section {
+        justify-content: flex-start;
+      }
+
+      .photo-section .gallery-grid {
+        flex: 1;
+        min-height: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .photo-section .thumb {
+        height: 100%;
+        aspect-ratio: auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        width: min(100%, 680px);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+    <main class="page">
+    <section class="title in-view">
+      <p>Wedding Invitation</p>
+      <h1>민준 ♡ 서연</h1>
+      <div class="divider"></div>
+      <p>2026년 10월 24일 토요일 오후 1시</p>
+    </section>
+
+    <section class="couple-invite-section">
+      <h2 class="couple-heading">신랑 / 신부</h2>
+      <div class="couple-split">
+        <div class="person-panel">
+          <span class="person-emoji" aria-hidden="true">🤵</span>
+          <span class="value">김민준</span>
+          <a class="contact-text" href="tel:01012345678">010-1234-5678</a>
+        </div>
+        <div class="person-panel">
+          <span class="person-emoji" aria-hidden="true">👰</span>
+          <span class="value">박서연</span>
+          <a class="contact-text" href="tel:01087654321">010-8765-4321</a>
+        </div>
+      </div>
+      <div class="invite-group">
+        <h2 class="invite-heading">초대글</h2>
+        <div class="message-box">
+          <p class="message">
+            서로의 가장 좋은 친구가 된 저희 두 사람이 사랑과 믿음으로 한 가정을 이루고자 합니다. 소중한 걸음으로 함께해 주시면 더없는 기쁨과 감사로 간직하겠습니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section">
+      <h2>웨딩 사진</h2>
+      <div class="gallery-grid">
+        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 1" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 2" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 3" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80">
+          <img src="https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 4" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 5" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1600&q=80">
+          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 6" loading="lazy">
+        </button>
+      </div>
+    </section>
+
+    <section>
+      <h2>예식장 안내 및 주차</h2>
+      <div class="info-card" style="margin-top:10px;">
+        <span class="value" id="venue-name">라온가든 웨딩홀</span>
+        <p style="margin-top:6px;">서울시 강남구 테헤란로 123, 라온가든 3층</p>
+      </div>
+      <div class="btn-row btn-row-bleed">
+        <button type="button" class="btn btn-block map-round" id="open-map-btn">네이버지도 열기</button>
+      </div>
+      <p style="margin-top:14px;">
+        라온가든 웨딩홀 지하 1층~3층 주차장 이용 가능 (2시간 무료)<br>
+        만차 시 인근 제휴 주차장(도보 3분)으로 안내드립니다.
+      </p>
+      <div class="mini-map">
+        <svg viewBox="0 0 640 360" width="100%" role="img" aria-label="예식장 약도(임시)">
+          <defs>
+            <linearGradient id="roadGrad" x1="0" x2="1">
+              <stop offset="0%" stop-color="#eed9c2"></stop>
+              <stop offset="100%" stop-color="#e8cfb5"></stop>
+            </linearGradient>
+          </defs>
+          <rect width="640" height="360" fill="#fff9f1"></rect>
+          <rect x="0" y="145" width="640" height="70" fill="url(#roadGrad)"></rect>
+          <rect x="260" y="0" width="88" height="360" fill="url(#roadGrad)"></rect>
+          <rect x="365" y="48" width="200" height="116" rx="16" fill="#f2e6d8" stroke="#c9a889"></rect>
+          <text x="465" y="110" text-anchor="middle" font-size="44" fill="#7f573d" font-weight="700">라온가든 웨딩홀</text>
+          <rect x="76" y="235" width="164" height="88" rx="14" fill="#f7ede2" stroke="#ccad90"></rect>
+          <text x="158" y="286" text-anchor="middle" font-size="40" fill="#8c674b" font-weight="700">제휴 주차장</text>
+          <path d="M 240 280 C 300 280, 325 235, 365 164" stroke="#b9784f" stroke-width="6" fill="none" stroke-dasharray="8 8"></path>
+          <polygon points="360,172 376,162 364,152" fill="#b9784f"></polygon>
+          <circle cx="304" cy="179" r="8" fill="#8f593d"></circle>
+          <text x="24" y="136" font-size="40" fill="#94654b" font-weight="700">테헤란로</text>
+          <text x="356" y="24" font-size="40" fill="#94654b" font-weight="700">학동로</text>
+        </svg>
+      </div>
+      <p class="parking-note">현재 약도는 임시 샘플입니다. 예식장 확정 후 실제 위치 기반으로 교체하면 됩니다.</p>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="close-btn" type="button" id="close-lightbox" aria-label="사진 닫기">&times;</button>
+      <img id="lightbox-image" alt="확대된 웨딩 사진">
+    </div>
+  </div>
+
+  <script>
+    const venueName = "라온가든 웨딩홀";
+    const venueAddress = "서울시 강남구 테헤란로 123";
+
+    const openMapBtn = document.getElementById("open-map-btn");
+    openMapBtn.addEventListener("click", () => {
+      const query = encodeURIComponent(`${venueName} ${venueAddress}`);
+      const appUrl = `nmap://search?query=${query}&appname=com.wedding.invite`;
+      const webUrl = `https://map.naver.com/p/search/${query}`;
+      const clickedAt = Date.now();
+      window.location.href = appUrl;
+      window.setTimeout(() => {
+        if (Date.now() - clickedAt < 1700) {
+          window.location.href = webUrl;
+        }
+      }, 800);
+    });
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const closeLightboxBtn = document.getElementById("close-lightbox");
+
+    document.querySelectorAll(".thumb").forEach((button) => {
+      button.addEventListener("click", () => {
+        lightboxImage.src = button.dataset.full;
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+    };
+
+    closeLightboxBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+
+    const sections = Array.from(document.querySelectorAll(".page > section"));
+    const mobileCardMedia = window.matchMedia("(max-width: 767px)");
+    let sectionObserver;
+
+    function markActiveSection(targetSection) {
+      sections.forEach((section) => {
+        section.classList.toggle("in-view", section === targetSection);
+      });
+    }
+
+    function setupMobileCardScroll() {
+      if (sectionObserver) {
+        sectionObserver.disconnect();
+        sectionObserver = null;
+      }
+
+      if (!sections.length) return;
+
+      if (!mobileCardMedia.matches) {
+        sections.forEach((section, index) => {
+          section.classList.toggle("in-view", index === 0);
+        });
+        return;
+      }
+
+      markActiveSection(sections[0]);
+
+      sectionObserver = new IntersectionObserver(
+        (entries) => {
+          let topEntry = null;
+          entries.forEach((entry) => {
+            if (!topEntry || entry.intersectionRatio > topEntry.intersectionRatio) {
+              topEntry = entry;
+            }
+          });
+
+          if (topEntry && topEntry.intersectionRatio >= 0.55) {
+            markActiveSection(topEntry.target);
+          }
+        },
+        {
+          root: document.querySelector(".page"),
+          threshold: [0.35, 0.55, 0.75, 0.95]
+        }
+      );
+
+      sections.forEach((section) => {
+        sectionObserver.observe(section);
+      });
+    }
+
+    setupMobileCardScroll();
+    if (mobileCardMedia.addEventListener) {
+      mobileCardMedia.addEventListener("change", setupMobileCardScroll);
+    } else if (mobileCardMedia.addListener) {
+      mobileCardMedia.addListener(setupMobileCardScroll);
+    }
+
+    // Start BGM immediately; if autoplay is blocked, retry on the first user interaction.
+    let started = false;
+    const bgmAudio = new Audio("./Gentle_Morning_HD.mp3");
+    bgmAudio.loop = true;
+    bgmAudio.preload = "auto";
+    bgmAudio.volume = 0.6;
+    bgmAudio.playsInline = true;
+
+    async function startMusic() {
+      if (started && !bgmAudio.paused) return;
+      await bgmAudio.play();
+      started = true;
+    }
+
+    const tryStartMusic = () => {
+      startMusic().catch(() => {});
+    };
+
+    window.addEventListener("load", tryStartMusic);
+    ["touchstart", "pointerdown", "click", "keydown"].forEach((eventName) => {
+      document.addEventListener(eventName, tryStartMusic, { once: true });
+    });
+  </script>
+</body>
+</html>
