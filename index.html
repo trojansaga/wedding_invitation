@@ -76,6 +76,7 @@
       margin-bottom: 14px;
       animation: rise 0.6s ease-out both;
       transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+      position: relative;
     }
 
     section:nth-child(2) { animation-delay: 0.08s; }
@@ -84,6 +85,7 @@
     section:nth-child(5) { animation-delay: 0.26s; }
     section:nth-child(6) { animation-delay: 0.32s; }
     section:nth-child(7) { animation-delay: 0.38s; }
+    section:nth-child(8) { animation-delay: 0.44s; }
 
     @keyframes rise {
       from { opacity: 0; transform: translateY(16px); }
@@ -98,6 +100,21 @@
         url("./flower_basket.png") center center / cover no-repeat;
       position: relative;
       overflow: visible;
+    }
+
+    .share-launch-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 22px 18px;
+    }
+
+    .share-launch-btn {
+      min-width: 140px;
+      border-radius: 999px;
+      min-height: 52px;
     }
 
     .title h1 {
@@ -118,6 +135,35 @@
       z-index: 1;
     }
 
+    .card-pagination {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .page-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(181, 210, 238, 0.7);
+      background: transparent;
+      opacity: 0.55;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .page-dot.is-active {
+      width: 9px;
+      height: 9px;
+      background: rgba(181, 210, 238, 0.95);
+      opacity: 1;
+      transform: scale(1);
+    }
+
     .title p {
       margin: 8px 0 0;
       color: var(--text-soft);
@@ -134,8 +180,39 @@
     h2 {
       margin: 0 0 12px;
       font-size: 36px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.02em;
+      font-synthesis: weight;
+      text-rendering: geometricPrecision;
+    }
+
+    .header-highlight {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+      z-index: 1;
+      padding: 0;
+      width: fit-content;
+      max-width: fit-content;
+      border-radius: 12px;
+      white-space: nowrap;
+      font-weight: 900;
+      text-shadow: 0.6px 0.6px 0.25px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-highlight::after {
+      content: "";
+      position: absolute;
+      left: -0.34em;
+      right: -0.34em;
+      top: 65%;
+      height: 0.5em;
+      background: linear-gradient(90deg, rgba(255, 245, 109, 0.68), rgba(151, 245, 162, 0.63));
+      transform: rotate(-1.2deg) translateY(-50%);
+      border-radius: 999px;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.98;
     }
 
     p {
@@ -278,25 +355,49 @@
 
     .message {
       text-align: center;
-      font-size: 28px;
+      font-size: 24px;
       line-height: 1.86;
       padding: 0 2px;
     }
 
-    .couple-heading {
-      margin: 0 0 12px;
-      text-align: center;
+    .invite-break {
+      display: block;
+      height: 0.45em;
     }
 
-    .invite-group {
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
+    .couple-heading {
+      margin: 0 0 12px;
+      text-align: left;
+    }
+
+    .couple-invite-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .invite-divider-space {
+      flex: 1 1 auto;
+      min-height: 16px;
+      display: flex;
+      align-items: center;
     }
 
     .invite-heading {
       margin: 0 0 12px;
-      text-align: center;
+      text-align: left;
+    }
+
+    .invite-divider-space::before {
+      content: "";
+      width: 100%;
+      border-top: 1px solid var(--line);
+    }
+
+    .invite-group {
+      margin-top: 0;
+      padding-top: 12px;
+      border-top: none;
     }
 
     .message-box {
@@ -306,6 +407,7 @@
       background: rgba(255, 255, 255, 0.74);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
       margin-top: 0;
+      margin-bottom: 24px;
     }
 
     .gallery-grid {
@@ -392,18 +494,173 @@
       cursor: pointer;
     }
 
+    .share-popup {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 14, 14, 0.52);
+      z-index: 35;
+      padding: 18px;
+    }
+
+    .share-popup.open {
+      display: flex;
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .share-popup-panel {
+      width: min(100%, 360px);
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(170deg, rgba(248, 255, 253, 0.98), rgba(227, 247, 241, 0.96));
+      box-shadow: 0 20px 40px rgba(17, 35, 35, 0.22);
+      padding: 18px 16px 14px;
+    }
+
+    .share-popup-title {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .share-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .share-option {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 12px;
+      border: 1px solid rgba(50, 92, 92, 0.24);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 24px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .share-option.close {
+      margin-top: 2px;
+      background: rgba(46, 123, 133, 0.15);
+      color: #1d4d54;
+    }
+
     .parking-note {
       color: var(--text-soft);
       font-size: 26px;
       margin-top: 8px;
     }
 
+    .parking-detail {
+      color: var(--text-soft);
+      font-size: 21px;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .venue-address {
+      font-size: 24px;
+    }
+
+    .transit-detail {
+      color: var(--text-soft);
+      font-size: 23px;
+      line-height: 1.2;
+      margin-top: 5px;
+    }
+
+    .parking-detail {
+      color: var(--text-soft);
+      font-size: 23px;
+      margin-top: 10px;
+      line-height: 1.55;
+    }
+
+    .parking-card-bottom-spacer {
+      margin-bottom: 24px;
+    }
+
+    .transit-title,
+    .parking-title {
+      color: var(--text-main);
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .section-subheading {
+      margin: 18px 0 10px;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
     .mini-map {
       margin-top: 12px;
       border-radius: 14px;
       border: 1px solid var(--line);
-      background: #fff7ee;
+      background: linear-gradient(180deg, #f7fafc 0%, #eff7f4 100%);
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-map img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .location-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .location-section .venue-info {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .location-section .venue-map-btn-row {
+      margin-top: 30px;
+      margin-bottom: 24px;
+    }
+
+    .transit-parking-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .transit-divider-space {
+      flex: 1 1 auto;
+      min-height: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .transit-divider-space::before {
+      content: "";
+      width: 100%;
+      border-top: 1px solid var(--line);
+    }
+
+    .parking-group {
+      margin-top: auto;
+    }
+
+    .venue-map-group {
+      margin-top: auto;
+    }
+
+    .venue-map-group .mini-map {
+      margin-top: 0;
     }
 
     @media (max-width: 767px) {
@@ -442,9 +699,12 @@
         filter: blur(0);
       }
 
-      .title,
-      section.couple-invite-section {
+      .title {
         justify-content: center;
+      }
+
+      .card-pagination {
+        display: flex;
       }
 
       section.photo-section {
@@ -454,7 +714,7 @@
       .photo-section .gallery-grid {
         flex: 1;
         min-height: 0;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-auto-rows: minmax(0, 1fr);
         gap: 10px;
       }
@@ -480,97 +740,136 @@
     <main class="page">
     <section class="title in-view">
       <p>Wedding Invitation</p>
-      <h1>민준 ♡ 서연</h1>
+      <h1>준원 ♡ 지연</h1>
       <div class="divider"></div>
-      <p>2026년 10월 24일 토요일 오후 1시</p>
+      <p>2026년 4월 18일 12시 30분</p>
     </section>
 
     <section class="couple-invite-section">
-      <h2 class="couple-heading">신랑 / 신부</h2>
+      <h2 class="couple-heading header-highlight">신랑 / 신부</h2>
       <div class="couple-split">
         <div class="person-panel">
           <span class="person-emoji" aria-hidden="true">🤵</span>
-          <span class="value">김민준</span>
-          <a class="contact-text" href="tel:01012345678">010-1234-5678</a>
+          <span class="value">최준원</span>
+          <a class="contact-text" href="tel:01089603313">010-8960-3313</a>
         </div>
         <div class="person-panel">
           <span class="person-emoji" aria-hidden="true">👰</span>
-          <span class="value">박서연</span>
-          <a class="contact-text" href="tel:01087654321">010-8765-4321</a>
+          <span class="value">송지연</span>
+          <a class="contact-text" href="tel:01067790334">010-6779-0334</a>
         </div>
       </div>
+      <div class="invite-divider-space" aria-hidden="true"></div>
       <div class="invite-group">
-        <h2 class="invite-heading">초대글</h2>
+          <h2 class="invite-heading header-highlight">초대글</h2>
         <div class="message-box">
           <p class="message">
-            서로의 가장 좋은 친구가 된 저희 두 사람이 사랑과 믿음으로 한 가정을 이루고자 합니다. 소중한 걸음으로 함께해 주시면 더없는 기쁨과 감사로 간직하겠습니다.
+            서로 다른 길을 걸어온 두 사람이<br>
+            이제 하나의 작품을 함께 써 내려가려 합니다.<br>
+            <span class="invite-break"> </span>
+            저희의 첫 번째 작품이 시작되는 날,<br>
+            소중한 분들을 모시고 싶습니다.
           </p>
         </div>
       </div>
     </section>
 
     <section class="photo-section">
-      <h2>웨딩 사진</h2>
+      <h2 class="header-highlight">사진들</h2>
       <div class="gallery-grid">
-        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80">
-          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 1" loading="lazy">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.40.jpg">
+          <img src="./photos/2026-03-09%2022.52.40.jpg" alt="웨딩 사진 1" loading="lazy">
         </button>
-        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80">
-          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 2" loading="lazy">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.58.jpg">
+          <img src="./photos/2026-03-09%2022.52.58.jpg" alt="웨딩 사진 2" loading="lazy">
         </button>
-        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 3" loading="lazy">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.03.jpg">
+          <img src="./photos/2026-03-09%2022.53.03.jpg" alt="웨딩 사진 3" loading="lazy">
         </button>
-        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80">
-          <img src="https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 4" loading="lazy">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.07.jpg">
+          <img src="./photos/2026-03-09%2022.53.07.jpg" alt="웨딩 사진 4" loading="lazy">
         </button>
-        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80">
-          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 5" loading="lazy">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.11.jpg">
+          <img src="./photos/2026-03-09%2022.53.11.jpg" alt="웨딩 사진 5" loading="lazy">
         </button>
-        <button type="button" class="thumb" data-full="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1600&q=80">
-          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=420&q=70" alt="웨딩 사진 6" loading="lazy">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.14.jpg">
+          <img src="./photos/2026-03-09%2022.53.14.jpg" alt="웨딩 사진 6" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.18.jpg">
+          <img src="./photos/2026-03-09%2022.53.18.jpg" alt="웨딩 사진 7" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.21.jpg">
+          <img src="./photos/2026-03-09%2022.53.21.jpg" alt="웨딩 사진 8" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.25.jpg">
+          <img src="./photos/2026-03-09%2022.53.25.jpg" alt="웨딩 사진 9" loading="lazy">
         </button>
       </div>
     </section>
 
-    <section>
-      <h2>예식장 안내 및 주차</h2>
+    <section class="location-section">
+      <h2 class="header-highlight">위치 안내</h2>
+      <div class="info-card venue-info">
+        <span class="value" id="venue-name">워킹온더클라우드</span>
+        <p class="venue-address" style="margin-top:6px;">서울 영등포구 63로 50 한화생명빌딩 59층</p>
+      </div>
+      <div class="venue-map-group">
+        <div class="mini-map">
+          <img src="./assets/images/map.png" alt="워킹온더클라우드 교통 약도" loading="lazy">
+        </div>
+
+        <div class="btn-row btn-row-bleed venue-map-btn-row">
+          <button type="button" class="btn btn-block map-round" id="open-map-btn">네이버지도 열기</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="transit-parking-section">
+      <h2 class="header-highlight">대중교통</h2>
       <div class="info-card" style="margin-top:10px;">
-        <span class="value" id="venue-name">라온가든 웨딩홀</span>
-        <p style="margin-top:6px;">서울시 강남구 테헤란로 123, 라온가든 3층</p>
+        <p class="transit-detail" style="margin-top:6px;">
+          5호선 여의나루역 1번 출구 → 261/5633/5634번 버스
+        </p>
+        <p class="transit-detail">
+          9호선 샛강역 3번 출구 → 5633/5634번 버스
+        </p>
+        <p class="transit-detail">
+          5호선 여의도역 5번 출구 → 11번 버스
+        </p>
       </div>
-      <div class="btn-row btn-row-bleed">
-        <button type="button" class="btn btn-block map-round" id="open-map-btn">네이버지도 열기</button>
+      <div class="transit-divider-space" aria-hidden="true"></div>
+      <div class="parking-group">
+        <h2 class="header-highlight">주차</h2>
+        <div class="info-card parking-card-bottom-spacer" style="margin-top:10px;">
+          <p class="parking-detail" style="margin-top:6px;">
+            최초 3시간 무료이며, 63건물 내 주차장을 이용해주세요.
+          </p>
+          <p class="parking-detail">
+            지하 주차 후에는 고객전용 엘리베이터 → 1층 → 고층부 레스토랑 엘리베이터로 이동하시면 됩니다.
+          </p>
+          <p class="parking-detail">
+            만차 시에는 한강 시민공원 주차장 이용 가능합니다.
+          </p>
+        </div>
       </div>
-      <p style="margin-top:14px;">
-        라온가든 웨딩홀 지하 1층~3층 주차장 이용 가능 (2시간 무료)<br>
-        만차 시 인근 제휴 주차장(도보 3분)으로 안내드립니다.
-      </p>
-      <div class="mini-map">
-        <svg viewBox="0 0 640 360" width="100%" role="img" aria-label="예식장 약도(임시)">
-          <defs>
-            <linearGradient id="roadGrad" x1="0" x2="1">
-              <stop offset="0%" stop-color="#eed9c2"></stop>
-              <stop offset="100%" stop-color="#e8cfb5"></stop>
-            </linearGradient>
-          </defs>
-          <rect width="640" height="360" fill="#fff9f1"></rect>
-          <rect x="0" y="145" width="640" height="70" fill="url(#roadGrad)"></rect>
-          <rect x="260" y="0" width="88" height="360" fill="url(#roadGrad)"></rect>
-          <rect x="365" y="48" width="200" height="116" rx="16" fill="#f2e6d8" stroke="#c9a889"></rect>
-          <text x="465" y="110" text-anchor="middle" font-size="44" fill="#7f573d" font-weight="700">라온가든 웨딩홀</text>
-          <rect x="76" y="235" width="164" height="88" rx="14" fill="#f7ede2" stroke="#ccad90"></rect>
-          <text x="158" y="286" text-anchor="middle" font-size="40" fill="#8c674b" font-weight="700">제휴 주차장</text>
-          <path d="M 240 280 C 300 280, 325 235, 365 164" stroke="#b9784f" stroke-width="6" fill="none" stroke-dasharray="8 8"></path>
-          <polygon points="360,172 376,162 364,152" fill="#b9784f"></polygon>
-          <circle cx="304" cy="179" r="8" fill="#8f593d"></circle>
-          <text x="24" y="136" font-size="40" fill="#94654b" font-weight="700">테헤란로</text>
-          <text x="356" y="24" font-size="40" fill="#94654b" font-weight="700">학동로</text>
-        </svg>
-      </div>
-      <p class="parking-note">현재 약도는 임시 샘플입니다. 예식장 확정 후 실제 위치 기반으로 교체하면 됩니다.</p>
+    </section>
+
+    <section class="share-launch-card">
+      <button type="button" class="btn share-launch-btn" id="share-btn" aria-label="청첩장 공유하기">공유하기</button>
     </section>
   </main>
+
+  <div class="share-popup" id="share-popup" aria-hidden="true">
+    <div class="share-popup-panel" role="dialog" aria-modal="true" aria-labelledby="share-popup-title">
+      <h3 class="share-popup-title" id="share-popup-title">공유하기</h3>
+      <div class="share-options">
+        <button type="button" class="share-option" id="share-kakao-btn">카카오톡 공유하기</button>
+        <button type="button" class="share-option" id="share-sms-btn">문자로 공유하기</button>
+        <button type="button" class="share-option" id="share-web-btn">웹 경로 공유하기</button>
+        <button type="button" class="share-option close" id="share-close-btn">닫기</button>
+      </div>
+    </div>
+  </div>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-content">
@@ -579,13 +878,132 @@
     </div>
   </div>
 
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js"></script>
   <script>
-    const venueName = "라온가든 웨딩홀";
-    const venueAddress = "서울시 강남구 테헤란로 123";
+    const venueName = "워킹온더클라우드";
+    const venueAddress = "서울 영등포구 63로 50 한화생명빌딩 59층";
+    const shareBtn = document.getElementById("share-btn");
+    const sharePopup = document.getElementById("share-popup");
+    const shareKakaoBtn = document.getElementById("share-kakao-btn");
+    const shareSmsBtn = document.getElementById("share-sms-btn");
+    const shareWebBtn = document.getElementById("share-web-btn");
+    const shareCloseBtn = document.getElementById("share-close-btn");
+
+    const SHARE_BASE_URL = "http://trojansaga.iptime.org:50000";
+    const SHARE_URL = `${SHARE_BASE_URL}/index.html`;
+    const SHARE_IMAGE_URL = `${SHARE_BASE_URL}/flower_basket.png`;
+    const shareData = {
+      title: "Wedding Invitation",
+      text: "준원 ❤️ 지연 의 결혼식에 초대합니다.",
+      url: SHARE_URL
+    };
+    const KAKAO_JS_KEY = "eb052189d073de7df542990a78aecfdc";
+
+    function openSharePopup() {
+      sharePopup.classList.add("open");
+      sharePopup.setAttribute("aria-hidden", "false");
+    }
+
+    function closeSharePopup() {
+      sharePopup.classList.remove("open");
+      sharePopup.setAttribute("aria-hidden", "true");
+    }
+
+    async function copyWebLink() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(shareData.url);
+        alert("청첩장 링크가 복사되었습니다.");
+        return;
+      }
+      prompt("아래 링크를 복사해 공유해 주세요.", shareData.url);
+    }
+
+    async function shareWithKakaoSdk() {
+      if (!window.Kakao || !KAKAO_JS_KEY) {
+        throw new Error("카카오톡 SDK가 준비되지 않았습니다.");
+      }
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init(KAKAO_JS_KEY);
+      }
+      await window.Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: shareData.title,
+          description: shareData.text,
+          imageUrl: SHARE_IMAGE_URL,
+          link: {
+            mobileWebUrl: shareData.url,
+            webUrl: shareData.url
+          }
+        },
+        buttons: [
+          {
+            title: "청첩장 보기",
+            link: {
+              mobileWebUrl: shareData.url,
+              webUrl: shareData.url
+            }
+          }
+        ]
+      });
+      return true;
+    }
+
+    shareBtn.addEventListener("click", openSharePopup);
+    shareCloseBtn.addEventListener("click", closeSharePopup);
+    sharePopup.addEventListener("click", (event) => {
+      if (event.target === sharePopup) {
+        closeSharePopup();
+      }
+    });
+
+    shareKakaoBtn.addEventListener("click", async () => {
+      try {
+        const shared = await shareWithKakaoSdk();
+        if (!shared) {
+          throw new Error("카카오 공유 요청이 실패했습니다.");
+        }
+        closeSharePopup();
+        return;
+      } catch (error) {
+        console.error(error);
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+            closeSharePopup();
+            return;
+          } catch (webShareError) {
+            console.warn(webShareError);
+          }
+        }
+        await copyWebLink();
+        alert("카카오 공유를 열지 못해 링크를 복사했습니다. 앱 키/도메인 등록을 확인해 주세요.");
+      } finally {
+        closeSharePopup();
+      }
+    });
+
+    shareSmsBtn.addEventListener("click", () => {
+      const body = encodeURIComponent(`${shareData.text}\n${shareData.url}`);
+      const smsUrl = /iPhone|iPad|iPod/i.test(navigator.userAgent)
+        ? `sms:&body=${body}`
+        : `sms:?body=${body}`;
+      window.location.href = smsUrl;
+      closeSharePopup();
+    });
+
+    shareWebBtn.addEventListener("click", async () => {
+      try {
+        await copyWebLink();
+      } catch (error) {
+      } finally {
+        closeSharePopup();
+      }
+    });
 
     const openMapBtn = document.getElementById("open-map-btn");
     openMapBtn.addEventListener("click", () => {
-      const query = encodeURIComponent(`${venueName} ${venueAddress}`);
+      const query = encodeURIComponent(venueName);
       const appUrl = `nmap://search?query=${query}&appname=com.wedding.invite`;
       const webUrl = `https://map.naver.com/p/search/${query}`;
       const clickedAt = Date.now();
@@ -623,17 +1041,51 @@
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
+        closeSharePopup();
         closeLightbox();
       }
     });
 
     const sections = Array.from(document.querySelectorAll(".page > section"));
     const mobileCardMedia = window.matchMedia("(max-width: 767px)");
+    const sectionPaginationDots = [];
     let sectionObserver;
 
+    function buildSectionPagination() {
+      if (!sections.length) return;
+
+      sections.forEach((section, index) => {
+        if (index === 0) {
+          sectionPaginationDots.push(null);
+          return;
+        }
+
+        const dotCount = sections.length - 1;
+        const pagination = document.createElement("div");
+        pagination.className = "card-pagination";
+
+        for (let dotIndex = 0; dotIndex < dotCount; dotIndex++) {
+          const dot = document.createElement("span");
+          dot.className = "page-dot";
+          pagination.appendChild(dot);
+        }
+
+        sectionPaginationDots.push(pagination.children);
+        section.appendChild(pagination);
+      });
+    }
+
     function markActiveSection(targetSection) {
-      sections.forEach((section) => {
-        section.classList.toggle("in-view", section === targetSection);
+      const rawActiveIndex = sections.indexOf(targetSection);
+      const activeIndex = rawActiveIndex > 0 ? rawActiveIndex - 1 : -1;
+      sections.forEach((section, sectionIndex) => {
+        const isActive = section === targetSection;
+        section.classList.toggle("in-view", isActive);
+        const dots = sectionPaginationDots[sectionIndex];
+        if (!dots) return;
+        Array.from(dots).forEach((dot, dotIndex) => {
+          dot.classList.toggle("is-active", activeIndex >= 0 && dotIndex === activeIndex);
+        });
       });
     }
 
@@ -652,7 +1104,7 @@
         return;
       }
 
-      markActiveSection(sections[0]);
+      markActiveSection(sections[1] || sections[0]);
 
       sectionObserver = new IntersectionObserver(
         (entries) => {
@@ -678,6 +1130,7 @@
       });
     }
 
+    buildSectionPagination();
     setupMobileCardScroll();
     if (mobileCardMedia.addEventListener) {
       mobileCardMedia.addEventListener("change", setupMobileCardScroll);
@@ -685,27 +1138,54 @@
       mobileCardMedia.addListener(setupMobileCardScroll);
     }
 
-    // Start BGM immediately; if autoplay is blocked, retry on the first user interaction.
+    // Autoplay policy safe flow: start muted immediately, then try to unmute.
     let started = false;
+    let unmuted = false;
     const bgmAudio = new Audio("./Gentle_Morning_HD.mp3");
     bgmAudio.loop = true;
     bgmAudio.preload = "auto";
     bgmAudio.volume = 0.6;
     bgmAudio.playsInline = true;
+    bgmAudio.autoplay = true;
+    bgmAudio.muted = true;
+    bgmAudio.setAttribute("playsinline", "");
+    bgmAudio.setAttribute("webkit-playsinline", "");
+
+    function tryUnmute() {
+      if (unmuted) return;
+      bgmAudio.muted = false;
+      bgmAudio.volume = 0.6;
+      unmuted = true;
+    }
 
     async function startMusic() {
       if (started && !bgmAudio.paused) return;
       await bgmAudio.play();
       started = true;
+      window.setTimeout(() => {
+        if (!document.hidden) {
+          tryUnmute();
+        }
+      }, 120);
     }
 
     const tryStartMusic = () => {
       startMusic().catch(() => {});
     };
 
+    window.addEventListener("DOMContentLoaded", tryStartMusic);
     window.addEventListener("load", tryStartMusic);
+    window.addEventListener("pageshow", tryStartMusic);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        tryStartMusic();
+      }
+    });
     ["touchstart", "pointerdown", "click", "keydown"].forEach((eventName) => {
-      document.addEventListener(eventName, tryStartMusic, { once: true });
+      document.addEventListener(eventName, () => {
+        tryStartMusic();
+        tryUnmute();
+      }, { once: true });
     });
   </script>
 </body>
