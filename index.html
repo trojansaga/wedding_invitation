@@ -16,15 +16,16 @@
     }
 
     :root {
-      --bg-ivory: #ecf8f6;
-      --bg-peach: #bedfd7;
-      --text-main: #20343a;
-      --text-soft: #3e5e62;
-      --card: rgba(238, 252, 250, 0.86);
-      --line: rgba(52, 104, 108, 0.2);
-      --accent: #4b9da8;
-      --accent-strong: #2e7b85;
-      --shadow: 0 16px 36px rgba(26, 74, 79, 0.14);
+      --bg-ivory: #f9f4ef;
+      --bg-peach: #f0dfd9;
+      --text-main: #4f413c;
+      --text-soft: #7f6a63;
+      --card: rgba(255, 249, 246, 0.88);
+      --line: rgba(143, 108, 96, 0.18);
+      --accent: #ca7e7a;
+      --accent-strong: #aa615d;
+      --accent-soft: #f3d9d1;
+      --shadow: 0 18px 40px rgba(117, 85, 72, 0.14);
       --radius-xl: 22px;
       --radius-lg: 16px;
       --radius-sm: 12px;
@@ -41,7 +42,7 @@
       padding: 0;
       min-height: 100%;
       color: var(--text-main);
-      background: linear-gradient(145deg, #88c5c7 0%, #9ed2ba 35%, #d7f0e3 100%);
+      background: linear-gradient(180deg, #fbf6f1 0%, #f4e8e2 50%, #f8f2ed 100%);
       font-family: "ClovaNanumKimYui", serif;
     }
 
@@ -51,9 +52,9 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.58), transparent 28%),
-        radial-gradient(circle at 85% 22%, rgba(182, 234, 219, 0.62), transparent 35%),
-        radial-gradient(circle at 50% 86%, rgba(206, 239, 245, 0.4), transparent 40%);
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.72), transparent 28%),
+        radial-gradient(circle at 85% 22%, rgba(245, 223, 216, 0.58), transparent 35%),
+        radial-gradient(circle at 50% 86%, rgba(244, 236, 229, 0.75), transparent 40%);
       z-index: 0;
     }
 
@@ -66,9 +67,7 @@
     }
 
     section {
-      background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.84), rgba(231, 245, 239, 0.78)),
-        url("./flower_basket.png") center center / cover no-repeat;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 245, 242, 0.94));
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
@@ -77,6 +76,22 @@
       animation: rise 0.6s ease-out both;
       transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
       position: relative;
+      overflow: hidden;
+    }
+
+    .share-launch-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("./flower_basket.png") center center / cover no-repeat;
+      opacity: 0.14;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    section:not(.title) > :not(.card-pagination) {
+      position: relative;
+      z-index: 1;
     }
 
     section:nth-child(2) { animation-delay: 0.08s; }
@@ -94,12 +109,75 @@
 
     .title {
       text-align: center;
-      padding: 28px 18px;
-      background:
-        linear-gradient(160deg, rgba(250, 252, 248, 0.78), rgba(230, 245, 238, 0.72)),
-        url("./flower_basket.png") center center / cover no-repeat;
+      padding: 0;
+      background: transparent;
       position: relative;
-      overflow: visible;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero-frame {
+      position: relative;
+      width: 100%;
+      min-height: calc(100svh - 68px);
+      border-radius: inherit;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background:
+        linear-gradient(180deg, rgba(255, 248, 243, 0.2), rgba(93, 66, 61, 0.18)),
+        url("./flower_basket.png") center center / cover no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 249, 245, 0.02) 0%, rgba(90, 64, 59, 0.12) 42%, rgba(56, 39, 37, 0.5) 100%),
+        radial-gradient(circle at 50% 18%, rgba(255, 246, 239, 0.22), transparent 28%);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 28px 20px 26px;
+      color: #fff9f6;
+      text-align: center;
+    }
+
+    .hero-kicker,
+    .section-kicker {
+      margin: 0 0 12px;
+      font-family: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker {
+      color: rgba(255, 243, 237, 0.88);
+    }
+
+    .section-kicker {
+      color: var(--accent);
+    }
+
+    .hero-date,
+    .hero-time {
+      color: rgba(255, 247, 242, 0.94);
+    }
+
+    .hero-date {
+      font-size: 30px;
+      margin-top: 10px;
+    }
+
+    .hero-time {
+      font-size: 22px;
+      margin-top: 6px;
     }
 
     .share-launch-card {
@@ -120,16 +198,18 @@
     .title h1 {
       margin: 0;
       font-family: "ClovaNanumKimYui", serif;
-      font-size: clamp(68px, 18vw, 88px);
-      letter-spacing: 0.04em;
+      font-size: clamp(58px, 15vw, 84px);
+      letter-spacing: 0.02em;
       text-align: center;
       line-height: 1.2;
       font-weight: 800;
       position: relative;
       z-index: 1;
+      color: #fff8f5;
+      text-shadow: 0 12px 30px rgba(39, 27, 24, 0.34);
     }
 
-    .title p,
+    .hero-copy p,
     .title .divider {
       position: relative;
       z-index: 1;
@@ -137,12 +217,12 @@
 
     .card-pagination {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 18px;
+      right: 18px;
       display: none;
       align-items: center;
       gap: 6px;
-      z-index: 2;
+      z-index: 4;
       pointer-events: none;
     }
 
@@ -150,31 +230,26 @@
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      border: 1px solid rgba(181, 210, 238, 0.7);
+      border: 1px solid rgba(202, 126, 122, 0.25);
       background: transparent;
       opacity: 0.55;
-      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     }
 
     .page-dot.is-active {
       width: 9px;
       height: 9px;
-      background: rgba(181, 210, 238, 0.95);
+      background: var(--dot-color, rgba(202, 126, 122, 0.95));
+      border-color: var(--dot-color, rgba(202, 126, 122, 0.95));
       opacity: 1;
       transform: scale(1);
-    }
-
-    .title p {
-      margin: 8px 0 0;
-      color: var(--text-soft);
-      font-size: 30px;
     }
 
     .divider {
       width: 72px;
       height: 2px;
       margin: 14px auto;
-      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      background: linear-gradient(to right, transparent, rgba(255, 245, 239, 0.88), transparent);
     }
 
     h2 {
@@ -207,12 +282,21 @@
       right: -0.34em;
       top: 65%;
       height: 0.5em;
-      background: linear-gradient(90deg, rgba(255, 245, 109, 0.68), rgba(151, 245, 162, 0.63));
+      background: linear-gradient(90deg, rgba(244, 206, 195, 0.88), rgba(243, 225, 216, 0.9));
       transform: rotate(-1.2deg) translateY(-50%);
       border-radius: 999px;
       z-index: -1;
       pointer-events: none;
-      opacity: 0.98;
+      opacity: 0.3;
+    }
+
+    .line-highlight {
+      display: inline;
+      padding: 0 0.18em 0.03em;
+      border-radius: 0.42em;
+      background: linear-gradient(180deg, transparent 54%, rgba(244, 206, 195, 0.3) 54%, rgba(243, 225, 216, 0.3) 100%);
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
     }
 
     p {
@@ -233,14 +317,75 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin: 0;
+      align-items: stretch;
     }
 
     .person-panel {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.7);
+      padding: 16px 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 238, 234, 0.88));
       text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      aspect-ratio: 972 / 1342;
+    }
+
+    .person-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% auto;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .person-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .groom-panel::before {
+      background-image: url("./assets/images/broom.png");
+    }
+
+    .bride-panel::before {
+      background-image: url("./assets/images/bride.png");
+    }
+
+    .groom-panel {
+      aspect-ratio: 972 / 1342;
+    }
+
+    .person-panel .value {
+      position: relative;
+      display: inline-block;
+      margin-top: 2em;
+      padding: 0 0.16em;
+      z-index: 1;
+    }
+
+    .person-panel .value::after {
+      content: "";
+      position: absolute;
+      left: -0.12em;
+      right: -0.12em;
+      top: 64%;
+      height: 0.5em;
+      background: linear-gradient(90deg, rgba(244, 206, 195, 0.34), rgba(243, 225, 216, 0.34));
+      transform: rotate(-1.4deg) translateY(-50%);
+      border-radius: 999px;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .person-emoji {
@@ -254,7 +399,8 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       padding: 12px;
-      background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(228, 247, 241, 0.88));
+      background: linear-gradient(150deg, rgba(255, 255, 255, 0.97), rgba(249, 239, 234, 0.92));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
     }
 
     .label {
@@ -279,7 +425,7 @@
       text-decoration: none;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 252, 249, 0.96);
       padding: 7px 12px;
       line-height: 1.2;
       transition: transform 0.2s ease, background-color 0.2s ease;
@@ -302,8 +448,8 @@
       appearance: none;
       border: 0;
       border-radius: 999px;
-      background: var(--accent);
-      color: #fffaf4;
+      background: linear-gradient(180deg, #d58f8a, #c6736f);
+      color: #fff8f2;
       padding: 11px 16px;
       font-size: 28px;
       font-weight: 700;
@@ -322,9 +468,9 @@
     }
 
     .btn-secondary {
-      background: rgba(148, 88, 58, 0.1);
+      background: rgba(202, 126, 122, 0.1);
       color: var(--accent-strong);
-      border: 1px solid rgba(148, 88, 58, 0.24);
+      border: 1px solid rgba(202, 126, 122, 0.24);
     }
 
     .btn-row {
@@ -365,6 +511,10 @@
       height: 0.45em;
     }
 
+    .invite-break-edge {
+      height: 1em;
+    }
+
     .couple-heading {
       margin: 0 0 12px;
       text-align: left;
@@ -401,13 +551,30 @@
     }
 
     .message-box {
+      position: relative;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       padding: 14px 12px 0;
-      background: rgba(255, 255, 255, 0.74);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(251, 244, 240, 0.88));
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
       margin-top: 0;
       margin-bottom: 24px;
+    }
+
+    .message-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("./assets/letter.png") center center / cover no-repeat;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .message-box > * {
+      position: relative;
+      z-index: 1;
     }
 
     .gallery-grid {
@@ -423,9 +590,9 @@
       border-radius: var(--radius-sm);
       overflow: hidden;
       cursor: pointer;
-      background: #f3ece4;
+      background: #f6ede8;
       aspect-ratio: 1 / 1;
-      box-shadow: 0 6px 14px rgba(45, 30, 20, 0.14);
+      box-shadow: 0 10px 20px rgba(90, 64, 55, 0.12);
     }
 
     .thumb img {
@@ -514,7 +681,7 @@
       width: min(100%, 360px);
       border-radius: 18px;
       border: 1px solid var(--line);
-      background: linear-gradient(170deg, rgba(248, 255, 253, 0.98), rgba(227, 247, 241, 0.96));
+      background: linear-gradient(170deg, rgba(255, 252, 249, 0.98), rgba(249, 239, 234, 0.96));
       box-shadow: 0 20px 40px rgba(17, 35, 35, 0.22);
       padding: 18px 16px 14px;
     }
@@ -547,8 +714,224 @@
 
     .share-option.close {
       margin-top: 2px;
-      background: rgba(46, 123, 133, 0.15);
-      color: #1d4d54;
+      background: rgba(202, 126, 122, 0.15);
+      color: var(--accent-strong);
+    }
+
+    .calendar-section,
+    .account-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .calendar-panel {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px 14px 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(250, 241, 236, 0.92));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+    }
+
+    .calendar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .calendar-month-label {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .calendar-note {
+      font-family: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      font-size: 13px;
+      color: var(--text-soft);
+      letter-spacing: 0.02em;
+    }
+
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .calendar-weekday,
+    .calendar-day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      font-family: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    }
+
+    .calendar-weekday {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-soft);
+      min-height: 24px;
+      letter-spacing: 0.14em;
+    }
+
+    .calendar-day {
+      min-height: 42px;
+      font-size: 16px;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px solid rgba(202, 126, 122, 0.08);
+    }
+
+    .calendar-day.is-empty {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .calendar-day.is-wedding {
+      background: linear-gradient(180deg, #d59490, #c87c78);
+      color: #fff7f1;
+      border-color: rgba(200, 124, 120, 0.6);
+      box-shadow: 0 8px 16px rgba(200, 124, 120, 0.22);
+      font-weight: 700;
+    }
+
+    .dday-caption {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(243, 217, 209, 0.42);
+      color: var(--accent-strong);
+      font-size: 23px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .account-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .account-item {
+      appearance: none;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(149, 115, 102, 0.24);
+      border-radius: 14px;
+      background:
+        linear-gradient(90deg, rgba(221, 177, 157, 0.2) 0, rgba(221, 177, 157, 0.2) 26px, transparent 26px),
+        linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(248, 239, 228, 0.96));
+      padding: 18px 16px 18px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--text-main);
+      box-shadow:
+        0 16px 28px rgba(117, 85, 72, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.84);
+    }
+
+    .account-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 31px,
+        rgba(181, 149, 132, 0.14) 31px,
+        rgba(181, 149, 132, 0.14) 32px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .account-item::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, rgba(227, 212, 197, 0.96) 0%, rgba(227, 212, 197, 0.96) 48%, rgba(255, 255, 255, 0) 49%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .account-item > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .account-item:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .account-side {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 66px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #cf8b85, #bf6d68);
+      color: #fff9f4;
+      font-family: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      box-shadow: 0 6px 12px rgba(191, 109, 104, 0.18);
+      transform: rotate(-2deg);
+    }
+
+    .account-name {
+      display: block;
+      margin-top: 12px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .account-number {
+      display: block;
+      margin-top: 8px;
+      font-family: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      font-size: 16px;
+      color: var(--text-soft);
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+    }
+
+    .account-copy {
+      display: inline-flex;
+      margin-top: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px dashed rgba(170, 97, 93, 0.42);
+      background: rgba(255, 248, 243, 0.78);
+      color: var(--accent-strong);
+      font-family: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .account-help {
+      margin-top: 12px;
+      font-size: 20px;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    .account-post-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: 16px;
+      border-radius: 18px;
+      border: 0;
+      box-shadow: none;
     }
 
     .parking-note {
@@ -586,6 +969,37 @@
       margin-bottom: 24px;
     }
 
+    .guide-info-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guide-info-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .guide-info-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .transit-info-card::before {
+      background-image: url("./assets/bus_subway.png");
+    }
+
+    .parking-info-card::before {
+      background-image: url("./assets/parkinglot.png");
+      opacity: 0.6;
+    }
+
     .transit-title,
     .parking-title {
       color: var(--text-main);
@@ -598,6 +1012,15 @@
       font-size: 30px;
       font-weight: 800;
       color: var(--text-main);
+    }
+
+    .transit-parking-section .transit-detail,
+    .transit-parking-section .parking-detail {
+      display: block;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
     .mini-map {
@@ -700,7 +1123,11 @@
       }
 
       .title {
-        justify-content: center;
+        justify-content: flex-start;
+      }
+
+      .title .hero-frame {
+        min-height: calc(100svh - 20px);
       }
 
       .card-pagination {
@@ -737,24 +1164,28 @@
   </style>
 </head>
 <body>
-    <main class="page">
+  <main class="page">
     <section class="title in-view">
-      <p>Wedding Invitation</p>
-      <h1>준원 ♡ 지연</h1>
-      <div class="divider"></div>
-      <p>2026년 4월 18일 12시 30분</p>
+      <div class="hero-frame">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-kicker">We're getting married</p>
+          <h1>준원 ❤️ 지연</h1>
+          <div class="divider"></div>
+          <p class="hero-date">2026년 4월 18일 토요일</p>
+          <p class="hero-time">오후 12시 30분 · 워킹온더클라우드</p>
+        </div>
+      </div>
     </section>
 
     <section class="couple-invite-section">
       <h2 class="couple-heading header-highlight">신랑 / 신부</h2>
       <div class="couple-split">
-        <div class="person-panel">
-          <span class="person-emoji" aria-hidden="true">🤵</span>
+        <div class="person-panel groom-panel">
           <span class="value">최준원</span>
           <a class="contact-text" href="tel:01089603313">010-8960-3313</a>
         </div>
-        <div class="person-panel">
-          <span class="person-emoji" aria-hidden="true">👰</span>
+        <div class="person-panel bride-panel">
           <span class="value">송지연</span>
           <a class="contact-text" href="tel:01067790334">010-6779-0334</a>
         </div>
@@ -764,17 +1195,42 @@
           <h2 class="invite-heading header-highlight">초대글</h2>
         <div class="message-box">
           <p class="message">
+            <span class="invite-break invite-break-edge"></span>
             서로 다른 길을 걸어온 두 사람이<br>
             이제 하나의 작품을 함께 써 내려가려 합니다.<br>
             <span class="invite-break"> </span>
             저희의 첫 번째 작품이 시작되는 날,<br>
             소중한 분들을 모시고 싶습니다.
+            <span class="invite-break invite-break-edge"></span>
           </p>
         </div>
       </div>
     </section>
 
+    <section class="calendar-section">
+      <p class="section-kicker">Calendar</p>
+      <h2 class="header-highlight">Wedding Day</h2>
+      <div class="calendar-panel">
+        <div class="calendar-top">
+          <span class="calendar-month-label" id="calendar-month-label">2026.04</span>
+          <span class="calendar-note">Save the date</span>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span class="calendar-weekday">SUN</span>
+          <span class="calendar-weekday">MON</span>
+          <span class="calendar-weekday">TUE</span>
+          <span class="calendar-weekday">WED</span>
+          <span class="calendar-weekday">THU</span>
+          <span class="calendar-weekday">FRI</span>
+          <span class="calendar-weekday">SAT</span>
+        </div>
+        <div class="calendar-grid" id="calendar-grid" aria-label="2026년 4월 달력"></div>
+        <p class="dday-caption" id="dday-caption">준원 그리고 지연의 결혼식이 다가오고 있습니다.</p>
+      </div>
+    </section>
+
     <section class="photo-section">
+      <p class="section-kicker">Album</p>
       <h2 class="header-highlight">사진들</h2>
       <div class="gallery-grid">
         <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.40.jpg">
@@ -808,6 +1264,7 @@
     </section>
 
     <section class="location-section">
+      <p class="section-kicker">Location</p>
       <h2 class="header-highlight">위치 안내</h2>
       <div class="info-card venue-info">
         <span class="value" id="venue-name">워킹온더클라우드</span>
@@ -825,33 +1282,55 @@
     </section>
 
     <section class="transit-parking-section">
+      <p class="section-kicker">Guide</p>
       <h2 class="header-highlight">대중교통</h2>
-      <div class="info-card" style="margin-top:10px;">
+      <div class="info-card guide-info-card transit-info-card" style="margin-top:10px;">
         <p class="transit-detail" style="margin-top:6px;">
-          5호선 여의나루역 1번 출구 → 261/5633/5634번 버스
+          <span class="line-highlight">5호선 여의나루역 1번 출구 → 261/5633/5634번 버스</span>
         </p>
         <p class="transit-detail">
-          9호선 샛강역 3번 출구 → 5633/5634번 버스
+          <span class="line-highlight">9호선 샛강역 3번 출구 → 5633/5634번 버스</span>
         </p>
         <p class="transit-detail">
-          5호선 여의도역 5번 출구 → 11번 버스
+          <span class="line-highlight">5호선 여의도역 5번 출구 → 11번 버스</span>
         </p>
       </div>
       <div class="transit-divider-space" aria-hidden="true"></div>
       <div class="parking-group">
         <h2 class="header-highlight">주차</h2>
-        <div class="info-card parking-card-bottom-spacer" style="margin-top:10px;">
+        <div class="info-card guide-info-card parking-info-card parking-card-bottom-spacer" style="margin-top:10px;">
           <p class="parking-detail" style="margin-top:6px;">
-            최초 3시간 무료이며, 63건물 내 주차장을 이용해주세요.
+            <span class="line-highlight">최초 3시간 무료, 63건물 내 주차장 이용</span>
           </p>
           <p class="parking-detail">
-            지하 주차 후에는 고객전용 엘리베이터 → 1층 → 고층부 레스토랑 엘리베이터로 이동하시면 됩니다.
+            <span class="line-highlight">지하 주차 후 → 고객전용 엘리베이터 → 1층 → 고층부 레스토랑 엘리베이터</span>
           </p>
           <p class="parking-detail">
-            만차 시에는 한강 시민공원 주차장 이용 가능합니다.
+            <span class="line-highlight">만차 시 한강 시민공원 주차장 이용 가능</span>
           </p>
         </div>
       </div>
+    </section>
+
+    <section class="account-section">
+      <p class="section-kicker">Account</p>
+      <h2 class="header-highlight">마음 전하실 곳</h2>
+      <div class="account-list">
+        <button type="button" class="account-item" data-copy="농협 171683-51-013141">
+          <span class="account-side">농협</span>
+          <strong class="account-name">최상덕 / 김옥미</strong>
+          <span class="account-number">171683-51-013141</span>
+          <span class="account-copy">계좌 복사</span>
+        </button>
+        <button type="button" class="account-item" data-copy="국민 031702-00-012722">
+          <span class="account-side">국민</span>
+          <strong class="account-name">최준원</strong>
+          <span class="account-number">031702-00-012722</span>
+          <span class="account-copy">계좌 복사</span>
+        </button>
+      </div>
+      <p class="account-help">카드를 누르면 계좌 정보가 복사됩니다.</p>
+      <img class="account-post-image" src="./assets/post.png" alt="마음 전하실 곳 장식 이미지" loading="lazy">
     </section>
 
     <section class="share-launch-card">
@@ -882,16 +1361,29 @@
   <script>
     const venueName = "워킹온더클라우드";
     const venueAddress = "서울 영등포구 63로 50 한화생명빌딩 59층";
+    const weddingDate = new Date("2026-04-18T12:30:00+09:00");
+    const pageColors = [
+      "#d89490",
+      "#caa8c8",
+      "#d7b295",
+      "#b2c9bf",
+      "#e4baa6",
+      "#c6afd8",
+      "#d9aab2"
+    ];
     const shareBtn = document.getElementById("share-btn");
     const sharePopup = document.getElementById("share-popup");
     const shareKakaoBtn = document.getElementById("share-kakao-btn");
     const shareSmsBtn = document.getElementById("share-sms-btn");
     const shareWebBtn = document.getElementById("share-web-btn");
     const shareCloseBtn = document.getElementById("share-close-btn");
+    const calendarMonthLabel = document.getElementById("calendar-month-label");
+    const calendarGrid = document.getElementById("calendar-grid");
+    const ddayCaption = document.getElementById("dday-caption");
 
     const SHARE_BASE_URL = "http://trojansaga.iptime.org:50000";
     const SHARE_URL = `${SHARE_BASE_URL}/index.html`;
-    const SHARE_IMAGE_URL = `${SHARE_BASE_URL}/flower_basket.png`;
+    const SHARE_IMAGE_URL = `${SHARE_BASE_URL}/photos/2026-03-09%2022.52.58.jpg`;
     const shareData = {
       title: "Wedding Invitation",
       text: "준원 ❤️ 지연 의 결혼식에 초대합니다.",
@@ -907,6 +1399,51 @@
     function closeSharePopup() {
       sharePopup.classList.remove("open");
       sharePopup.setAttribute("aria-hidden", "true");
+    }
+
+    function renderWeddingCalendar(date) {
+      if (!calendarGrid || !calendarMonthLabel) return;
+
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const weddingDay = date.getDate();
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      calendarMonthLabel.textContent = `${year}.${String(month + 1).padStart(2, "0")}`;
+      calendarGrid.innerHTML = "";
+
+      for (let index = 0; index < firstDay; index += 1) {
+        const emptyCell = document.createElement("span");
+        emptyCell.className = "calendar-day is-empty";
+        calendarGrid.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const dayCell = document.createElement("span");
+        dayCell.className = "calendar-day";
+        dayCell.textContent = day;
+        if (day === weddingDay) {
+          dayCell.classList.add("is-wedding");
+        }
+        calendarGrid.appendChild(dayCell);
+      }
+    }
+
+    function renderWeddingCountdown(date) {
+      if (!ddayCaption) return;
+
+      const now = new Date();
+      const diffMs = date.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffMs / 86400000);
+
+      if (diffDays > 0) {
+        ddayCaption.textContent = `결혼식까지 ${diffDays}일 남았습니다.`;
+      } else if (diffDays === 0) {
+        ddayCaption.textContent = "오늘은 준원 그리고 지연의 결혼식 날입니다.";
+      } else {
+        ddayCaption.textContent = `준원 그리고 지연의 결혼식은 ${Math.abs(diffDays)}일 전에 있었습니다.`;
+      }
     }
 
     async function copyWebLink() {
@@ -1046,6 +1583,23 @@
       }
     });
 
+    document.querySelectorAll(".account-item").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const copyValue = button.dataset.copy || "";
+        if (!copyValue) {
+          alert(button.dataset.emptyMessage || "계좌 정보가 아직 등록되지 않았습니다.");
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(copyValue);
+          alert("계좌번호가 복사되었습니다.");
+        } catch (error) {
+          prompt("아래 계좌번호를 복사해 주세요.", copyValue);
+        }
+      });
+    });
+
     const sections = Array.from(document.querySelectorAll(".page > section"));
     const mobileCardMedia = window.matchMedia("(max-width: 767px)");
     const sectionPaginationDots = [];
@@ -1054,19 +1608,22 @@
     function buildSectionPagination() {
       if (!sections.length) return;
 
+      const lastSectionIndex = sections.length - 1;
+      const dotCount = Math.max(sections.length - 2, 0);
+
       sections.forEach((section, index) => {
-        if (index === 0) {
+        if (index === 0 || index === lastSectionIndex) {
           sectionPaginationDots.push(null);
           return;
         }
 
-        const dotCount = sections.length - 1;
         const pagination = document.createElement("div");
         pagination.className = "card-pagination";
 
         for (let dotIndex = 0; dotIndex < dotCount; dotIndex++) {
           const dot = document.createElement("span");
           dot.className = "page-dot";
+          dot.style.setProperty("--dot-color", pageColors[dotIndex % pageColors.length]);
           pagination.appendChild(dot);
         }
 
@@ -1077,7 +1634,7 @@
 
     function markActiveSection(targetSection) {
       const rawActiveIndex = sections.indexOf(targetSection);
-      const activeIndex = rawActiveIndex > 0 ? rawActiveIndex - 1 : -1;
+      const activeIndex = rawActiveIndex > 0 && rawActiveIndex < sections.length - 1 ? rawActiveIndex - 1 : -1;
       sections.forEach((section, sectionIndex) => {
         const isActive = section === targetSection;
         section.classList.toggle("in-view", isActive);
@@ -1130,6 +1687,8 @@
       });
     }
 
+    renderWeddingCalendar(weddingDate);
+    renderWeddingCountdown(weddingDate);
     buildSectionPagination();
     setupMobileCardScroll();
     if (mobileCardMedia.addEventListener) {
