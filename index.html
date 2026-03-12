@@ -151,7 +151,7 @@
       max-width: 420px;
       margin: 0 18px;
       padding: 30px 20px 28px;
-      color: #fff9f6;
+      color: #1f1719;
       text-align: center;
     }
 
@@ -159,7 +159,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(116, 72, 87, 0.52);
+      background: rgba(205, 158, 170, 0.2);
       -webkit-backdrop-filter: blur(12px);
       backdrop-filter: blur(12px);
       border-radius: 28px;
@@ -177,7 +177,8 @@
     }
 
     .hero-kicker {
-      color: rgba(255, 243, 237, 0.88);
+      color: rgba(31, 23, 25, 0.88);
+      font-weight: 700;
     }
 
     .section-kicker {
@@ -186,7 +187,8 @@
 
     .hero-date,
     .hero-time {
-      color: rgba(255, 247, 242, 0.94);
+      color: rgba(31, 23, 25, 0.94);
+      font-weight: 800;
     }
 
     .hero-date {
@@ -221,17 +223,25 @@
       letter-spacing: 0.02em;
       text-align: center;
       line-height: 1.2;
-      font-weight: 800;
+      font-weight: 900;
       position: relative;
       z-index: 1;
-      color: #fff8f5;
-      text-shadow: 0 12px 30px rgba(39, 27, 24, 0.34);
+      color: #1a1214;
+      text-shadow: 0 4px 14px rgba(255, 248, 245, 0.28);
+    }
+
+    .hero-copy p {
+      font-weight: 700;
     }
 
     .hero-copy p,
     .title .divider {
       position: relative;
       z-index: 1;
+    }
+
+    .title .divider {
+      background: linear-gradient(to right, transparent, rgba(31, 23, 25, 0.68), transparent);
     }
 
     .card-pagination {
@@ -1401,7 +1411,8 @@
     const currentShareUrl = new URL(window.location.href);
     currentShareUrl.hash = "";
     const SHARE_URL = currentShareUrl.toString();
-    const SHARE_IMAGE_URL = new URL("./photos/2026-03-09%2022.52.58.jpg", currentShareUrl).toString();
+    const KAKAO_SHARE_URL = "http://trojansaga.synology.me:10000/wedding_invitation/";
+    const SHARE_IMAGE_URL = new URL("./photos/2026-03-09%2022.52.58.jpg", KAKAO_SHARE_URL).toString();
     const shareData = {
       title: "Wedding Invitation",
       text: "준원 ❤️ 지연 의 결혼식에 초대합니다.",
@@ -1487,16 +1498,16 @@
           description: shareData.text,
           imageUrl: SHARE_IMAGE_URL,
           link: {
-            mobileWebUrl: shareData.url,
-            webUrl: shareData.url
+            mobileWebUrl: KAKAO_SHARE_URL,
+            webUrl: KAKAO_SHARE_URL
           }
         },
         buttons: [
           {
             title: "청첩장 보기",
             link: {
-              mobileWebUrl: shareData.url,
-              webUrl: shareData.url
+              mobileWebUrl: KAKAO_SHARE_URL,
+              webUrl: KAKAO_SHARE_URL
             }
           }
         ]
