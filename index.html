@@ -126,26 +126,45 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      background:
-        linear-gradient(180deg, rgba(255, 248, 243, 0.2), rgba(93, 66, 61, 0.18)),
-        url("./flower_basket.png") center center / cover no-repeat;
+      padding-bottom: 56px;
+      background: transparent;
+    }
+
+    .hero-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("./flower_basket.png") center center / cover no-repeat;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255, 249, 245, 0.02) 0%, rgba(90, 64, 59, 0.12) 42%, rgba(56, 39, 37, 0.5) 100%),
-        radial-gradient(circle at 50% 18%, rgba(255, 246, 239, 0.22), transparent 28%);
+      display: none;
     }
 
     .hero-copy {
       position: relative;
       z-index: 1;
-      width: 100%;
-      padding: 28px 20px 26px;
+      width: calc(100% - 36px);
+      max-width: 420px;
+      margin: 0 18px;
+      padding: 30px 20px 28px;
       color: #fff9f6;
       text-align: center;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(116, 72, 87, 0.52);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .hero-kicker,
@@ -647,14 +666,16 @@
       top: 10px;
       right: 10px;
       border: 0;
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
-      color: #2f2520;
+      width: auto;
+      height: auto;
+      padding: 0 2px;
+      border-radius: 0;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.72);
       font-size: 44px;
       line-height: 1;
       cursor: pointer;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.34);
     }
 
     .share-popup {
@@ -1166,7 +1187,7 @@
         <div class="hero-overlay" aria-hidden="true"></div>
         <div class="hero-copy">
           <p class="hero-kicker">We're getting married</p>
-          <h1>준원 🤍 지연</h1>
+          <h1>준원 ♥ 지연</h1>
           <div class="divider"></div>
           <p class="hero-date">2026년 4월 18일 토요일</p>
           <p class="hero-time">오후 12시 30분 · 워킹온더클라우드</p>
@@ -1377,9 +1398,10 @@
     const calendarGrid = document.getElementById("calendar-grid");
     const ddayCaption = document.getElementById("dday-caption");
 
-    const SHARE_BASE_URL = "http://trojansaga.iptime.org:50000";
-    const SHARE_URL = `${SHARE_BASE_URL}/index.html`;
-    const SHARE_IMAGE_URL = `${SHARE_BASE_URL}/photos/2026-03-09%2022.52.58.jpg`;
+    const currentShareUrl = new URL(window.location.href);
+    currentShareUrl.hash = "";
+    const SHARE_URL = currentShareUrl.toString();
+    const SHARE_IMAGE_URL = new URL("./photos/2026-03-09%2022.52.58.jpg", currentShareUrl).toString();
     const shareData = {
       title: "Wedding Invitation",
       text: "준원 ❤️ 지연 의 결혼식에 초대합니다.",
