@@ -1497,8 +1497,26 @@
       if (!window.Kakao.isInitialized()) {
         window.Kakao.init(KAKAO_JS_KEY);
       }
-      await window.Kakao.Share.sendScrap({
-        requestUrl: KAKAO_SHARE_URL
+      await window.Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: shareData.title,
+          description: shareData.text,
+          imageUrl: SHARE_IMAGE_URL,
+          link: {
+            mobileWebUrl: KAKAO_SHARE_URL,
+            webUrl: KAKAO_SHARE_URL
+          }
+        },
+        buttons: [
+          {
+            title: "청첩장 보기",
+            link: {
+              mobileWebUrl: KAKAO_SHARE_URL,
+              webUrl: KAKAO_SHARE_URL
+            }
+          }
+        ]
       });
       return true;
     }
