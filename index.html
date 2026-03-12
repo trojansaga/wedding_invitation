@@ -6,6 +6,12 @@
   <meta name="format-detection" content="telephone=no">
   <title>모바일 청첩장</title>
   <meta name="description" content="모바일 웨딩 초대장">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wedding Invitation">
+  <meta property="og:description" content="준원 ❤️ 지연 의 결혼식에 초대합니다.">
+  <meta property="og:url" content="http://trojansaga.synology.me:10000/wedding_invitation/">
+  <meta property="og:image" content="http://trojansaga.synology.me:10000/wedding_invitation/flower_basket.png">
+  <meta property="og:image:alt" content="준원과 지연의 결혼식 초대장">
   <style>
     @font-face {
       font-family: "ClovaNanumKimYui";
@@ -1491,26 +1497,8 @@
       if (!window.Kakao.isInitialized()) {
         window.Kakao.init(KAKAO_JS_KEY);
       }
-      await window.Kakao.Share.sendDefault({
-        objectType: "feed",
-        content: {
-          title: shareData.title,
-          description: shareData.text,
-          imageUrl: SHARE_IMAGE_URL,
-          link: {
-            mobileWebUrl: KAKAO_SHARE_URL,
-            webUrl: KAKAO_SHARE_URL
-          }
-        },
-        buttons: [
-          {
-            title: "청첩장 보기",
-            link: {
-              mobileWebUrl: KAKAO_SHARE_URL,
-              webUrl: KAKAO_SHARE_URL
-            }
-          }
-        ]
+      await window.Kakao.Share.sendScrap({
+        requestUrl: KAKAO_SHARE_URL
       });
       return true;
     }
