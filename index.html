@@ -984,6 +984,11 @@
       font-size: 24px;
     }
 
+    .venue-info .value,
+    .venue-info .venue-address {
+      font-size: 23px;
+    }
+
     .transit-detail {
       color: var(--text-soft);
       font-size: 23px;
@@ -1082,12 +1087,25 @@
     }
 
     .location-section .venue-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 7px 12px;
       margin-top: 0;
       margin-bottom: 14px;
     }
 
+    .location-section .venue-info .value,
+    .location-section .venue-info .venue-address {
+      line-height: 1.15;
+    }
+
+    .location-section .venue-info .venue-address {
+      margin-top: 0;
+    }
+
     .location-section .venue-map-btn-row {
-      margin-top: 30px;
+      margin-top: 15px;
       margin-bottom: 24px;
     }
 
@@ -1303,7 +1321,7 @@
       <h2 class="header-highlight">위치 안내</h2>
       <div class="info-card venue-info">
         <span class="value" id="venue-name">워킹온더클라우드</span>
-        <p class="venue-address" style="margin-top:6px;">서울 영등포구 63로 50 한화생명빌딩 59층</p>
+        <p class="venue-address">서울 영등포구 63로 50 한화생명빌딩 59층</p>
       </div>
       <div class="venue-map-group">
         <div class="mini-map">
