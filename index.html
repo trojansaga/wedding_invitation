@@ -9,7 +9,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Wedding Invitation">
   <meta property="og:description" content="준원 ❤️ 지연 의 결혼식에 초대합니다.">
-  <meta property="og:url" content="http://trojansaga.synology.me:10000/wedding_invitation/">
+  <meta property="og:url" content="http://trojansaga.synology.me:10000/wedding_invitation/index.html">
   <meta property="og:image" content="http://trojansaga.synology.me:10000/wedding_invitation/flower_basket.png">
   <meta property="og:image:alt" content="준원과 지연의 결혼식 초대장">
   <style>
@@ -1057,6 +1057,7 @@
     }
 
     .mini-map {
+      width: 100%;
       margin-top: 12px;
       border-radius: 14px;
       border: 1px solid var(--line);
@@ -1065,12 +1066,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      aspect-ratio: 945 / 1247;
     }
 
     .mini-map img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
     }
 
@@ -1305,7 +1307,7 @@
       </div>
       <div class="venue-map-group">
         <div class="mini-map">
-          <img src="./assets/images/map.png" alt="워킹온더클라우드 교통 약도" loading="lazy">
+          <img src="./assets/images/map.png" alt="워킹온더클라우드 교통 약도" loading="lazy" width="945" height="1247">
         </div>
 
         <div class="btn-row btn-row-bleed venue-map-btn-row">
@@ -1417,7 +1419,7 @@
     const currentShareUrl = new URL(window.location.href);
     currentShareUrl.hash = "";
     const SHARE_URL = currentShareUrl.toString();
-    const KAKAO_SHARE_URL = "http://trojansaga.synology.me:10000/wedding_invitation/";
+    const KAKAO_SHARE_URL = "http://trojansaga.synology.me:10000/wedding_invitation/index.html";
     const SHARE_IMAGE_URL = new URL("./flower_basket.png", KAKAO_SHARE_URL).toString();
     const shareData = {
       title: "Wedding Invitation",
@@ -1732,55 +1734,6 @@
       mobileCardMedia.addListener(setupMobileCardScroll);
     }
 
-    // Autoplay policy safe flow: start muted immediately, then try to unmute.
-    let started = false;
-    let unmuted = false;
-    const bgmAudio = new Audio("./Gentle_Morning_HD.mp3");
-    bgmAudio.loop = true;
-    bgmAudio.preload = "auto";
-    bgmAudio.volume = 0.6;
-    bgmAudio.playsInline = true;
-    bgmAudio.autoplay = true;
-    bgmAudio.muted = true;
-    bgmAudio.setAttribute("playsinline", "");
-    bgmAudio.setAttribute("webkit-playsinline", "");
-
-    function tryUnmute() {
-      if (unmuted) return;
-      bgmAudio.muted = false;
-      bgmAudio.volume = 0.6;
-      unmuted = true;
-    }
-
-    async function startMusic() {
-      if (started && !bgmAudio.paused) return;
-      await bgmAudio.play();
-      started = true;
-      window.setTimeout(() => {
-        if (!document.hidden) {
-          tryUnmute();
-        }
-      }, 120);
-    }
-
-    const tryStartMusic = () => {
-      startMusic().catch(() => {});
-    };
-
-    window.addEventListener("DOMContentLoaded", tryStartMusic);
-    window.addEventListener("load", tryStartMusic);
-    window.addEventListener("pageshow", tryStartMusic);
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-        tryStartMusic();
-      }
-    });
-    ["touchstart", "pointerdown", "click", "keydown"].forEach((eventName) => {
-      document.addEventListener(eventName, () => {
-        tryStartMusic();
-        tryUnmute();
-      }, { once: true });
-    });
   </script>
 </body>
 </html>
