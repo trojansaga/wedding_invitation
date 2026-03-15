@@ -532,9 +532,21 @@
 
     .message {
       text-align: center;
-      font-size: 24px;
+      font-size: clamp(20px, 5.4vw, 24px);
       line-height: 1.86;
       padding: 0 2px;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .message-line {
+      display: block;
+      text-wrap: pretty;
+    }
+
+    .message-chunk {
+      display: inline-block;
+      white-space: nowrap;
     }
 
     .invite-break {
@@ -1248,13 +1260,25 @@
           <h2 class="invite-heading header-highlight">초대글</h2>
         <div class="message-box">
           <p class="message">
-            <span class="invite-break invite-break-edge"></span>
-            서로 다른 길을 걸어온 두 사람이<br>
-            이제 하나의 작품을 함께 써 내려가려 합니다.<br>
-            <span class="invite-break"> </span>
-            저희의 첫 번째 작품이 시작되는 날,<br>
-            소중한 분들을 모시고 싶습니다.
-            <span class="invite-break invite-break-edge"></span>
+            <span class="invite-break invite-break-edge" aria-hidden="true"></span>
+            <span class="message-line">
+              <span class="message-chunk">서로 다른 길을</span>
+              <span class="message-chunk">걸어온 두 사람이</span>
+            </span>
+            <span class="message-line">
+              <span class="message-chunk">이제 하나의 작품을</span>
+              <span class="message-chunk">함께 써 내려가려 합니다.</span>
+            </span>
+            <span class="invite-break" aria-hidden="true"></span>
+            <span class="message-line">
+              <span class="message-chunk">저희의 첫 번째 작품이</span>
+              <span class="message-chunk">시작되는 날,</span>
+            </span>
+            <span class="message-line">
+              <span class="message-chunk">소중한 분들을</span>
+              <span class="message-chunk">모시고 싶습니다.</span>
+            </span>
+            <span class="invite-break invite-break-edge" aria-hidden="true"></span>
           </p>
         </div>
       </div>
