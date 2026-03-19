@@ -417,7 +417,7 @@
     }
 
     .parent-dot {
-      margin: 0 -0.3em;
+      margin: 0;
     }
 
     .person-parents {
@@ -1259,13 +1259,16 @@
         justify-content: flex-start;
       }
 
-      .photo-section .gallery-slider {
+      .photo-section .gallery-grid {
         flex: 1;
         min-height: 0;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: minmax(0, 1fr);
+        gap: 10px;
       }
 
-      .photo-section .gallery-slide .thumb {
-        flex: 1;
+      .photo-section .thumb {
+        height: 100%;
         aspect-ratio: auto;
       }
     }
@@ -1275,8 +1278,8 @@
         width: min(100%, 680px);
       }
 
-      .gallery-slide {
-        flex: 0 0 calc(50% - 4px);
+      .gallery-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
   </style>
@@ -1364,38 +1367,33 @@
     <section class="photo-section">
       <p class="section-kicker">Album</p>
       <h2 class="header-highlight">사진들</h2>
-      <div class="gallery-slider">
-        <div class="gallery-slide">
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.40.jpg">
-            <img src="./photos/2026-03-09%2022.52.40.jpg" alt="웨딩 사진 1" loading="lazy">
-          </button>
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.58.jpg">
-            <img src="./photos/2026-03-09%2022.52.58.jpg" alt="웨딩 사진 2" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.03.jpg">
-            <img src="./photos/2026-03-09%2022.53.03.jpg" alt="웨딩 사진 3" loading="lazy">
-          </button>
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.07.jpg">
-            <img src="./photos/2026-03-09%2022.53.07.jpg" alt="웨딩 사진 4" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.11.jpg">
-            <img src="./photos/2026-03-09%2022.53.11.jpg" alt="웨딩 사진 5" loading="lazy">
-          </button>
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.14.jpg">
-            <img src="./photos/2026-03-09%2022.53.14.jpg" alt="웨딩 사진 6" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.21.jpg">
-            <img src="./photos/2026-03-09%2022.53.21.jpg" alt="웨딩 사진 7" loading="lazy">
-          </button>
-          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.25.jpg">
-            <img src="./photos/2026-03-09%2022.53.25.jpg" alt="웨딩 사진 8" loading="lazy">
-          </button>
+      <div class="gallery-grid">
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.40.jpg">
+          <img src="./photos/2026-03-09%2022.52.40.jpg" alt="웨딩 사진 1" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.58.jpg">
+          <img src="./photos/2026-03-09%2022.52.58.jpg" alt="웨딩 사진 2" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.03.jpg">
+          <img src="./photos/2026-03-09%2022.53.03.jpg" alt="웨딩 사진 3" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.07.jpg">
+          <img src="./photos/2026-03-09%2022.53.07.jpg" alt="웨딩 사진 4" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.11.jpg">
+          <img src="./photos/2026-03-09%2022.53.11.jpg" alt="웨딩 사진 5" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.14.jpg">
+          <img src="./photos/2026-03-09%2022.53.14.jpg" alt="웨딩 사진 6" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.21.jpg">
+          <img src="./photos/2026-03-09%2022.53.21.jpg" alt="웨딩 사진 7" loading="lazy">
+        </button>
+        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.25.jpg">
+          <img src="./photos/2026-03-09%2022.53.25.jpg" alt="웨딩 사진 8" loading="lazy">
+        </button>
+        <div class="thumb">
+          <img src="./assets/images/photos.png" alt="웨딩 일러스트" loading="lazy">
         </div>
       </div>
     </section>
