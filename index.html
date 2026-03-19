@@ -397,10 +397,45 @@
       background-image: url("./assets/images/bride.png");
     }
 
+    .person-relation {
+      font-size: 0.7em;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-block;
+      margin-top: 0;
+      line-height: 1;
+      background: linear-gradient(180deg, transparent 54%, rgba(244, 206, 195, 0.34) 54%, rgba(243, 225, 216, 0.34) 100%);
+      padding: 0 0.08em;
+      border-radius: 0.2em;
+    }
+
+    .parent-name {
+      letter-spacing: -0.03em;
+      background: linear-gradient(180deg, transparent 54%, rgba(244, 206, 195, 0.34) 54%, rgba(243, 225, 216, 0.34) 100%);
+      padding: 0 0.08em;
+      border-radius: 0.2em;
+    }
+
+    .parent-dot {
+      margin: 0 -0.3em;
+    }
+
+    .person-parents {
+      font-size: 26px;
+      color: var(--text-soft);
+      margin-top: 1.6em;
+      margin-bottom: -0.6em;
+      letter-spacing: -0.01em;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+    }
+
     .person-panel .value {
       position: relative;
       display: inline-block;
-      margin-top: 2em;
+      margin-top: 0.4em;
       padding: 0 0.16em;
       z-index: 1;
     }
@@ -618,6 +653,27 @@
     .message-box > * {
       position: relative;
       z-index: 1;
+    }
+
+    .gallery-slider {
+      display: flex;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 8px;
+      scrollbar-width: none;
+    }
+
+    .gallery-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-slide {
+      flex: 0 0 calc(50% - 4px);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      scroll-snap-align: start;
     }
 
     .gallery-grid {
@@ -1203,16 +1259,13 @@
         justify-content: flex-start;
       }
 
-      .photo-section .gallery-grid {
+      .photo-section .gallery-slider {
         flex: 1;
         min-height: 0;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-auto-rows: minmax(0, 1fr);
-        gap: 10px;
       }
 
-      .photo-section .thumb {
-        height: 100%;
+      .photo-section .gallery-slide .thumb {
+        flex: 1;
         aspect-ratio: auto;
       }
     }
@@ -1222,8 +1275,8 @@
         width: min(100%, 680px);
       }
 
-      .gallery-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+      .gallery-slide {
+        flex: 0 0 calc(50% - 4px);
       }
     }
   </style>
@@ -1238,7 +1291,7 @@
           <h1>준원 ♥ 지연</h1>
           <div class="divider"></div>
           <p class="hero-date">2026년 4월 18일 토요일</p>
-          <p class="hero-time">오후 12시 30분 · 워킹온더클라우드</p>
+          <p class="hero-time">오후 12시 30분·워킹온더클라우드</p>
         </div>
       </div>
     </section>
@@ -1247,10 +1300,12 @@
       <h2 class="couple-heading header-highlight">신랑 / 신부</h2>
       <div class="couple-split">
         <div class="person-panel groom-panel">
+          <span class="person-parents"><span class="parent-names"><span class="parent-name">최상덕</span><span class="parent-dot">·</span><span class="parent-name">김옥미</span></span><span class="person-relation">아들</span></span>
           <span class="value">최준원</span>
           <a class="contact-text" href="tel:01089603313">010-8960-3313</a>
         </div>
         <div class="person-panel bride-panel">
+          <span class="person-parents"><span class="parent-names"><span class="parent-name">송승훈</span><span class="parent-dot">·</span><span class="parent-name">김진옥</span></span><span class="person-relation">딸</span></span>
           <span class="value">송지연</span>
           <a class="contact-text" href="tel:01067790334">010-6779-0334</a>
         </div>
@@ -1309,34 +1364,39 @@
     <section class="photo-section">
       <p class="section-kicker">Album</p>
       <h2 class="header-highlight">사진들</h2>
-      <div class="gallery-grid">
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.40.jpg">
-          <img src="./photos/2026-03-09%2022.52.40.jpg" alt="웨딩 사진 1" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.58.jpg">
-          <img src="./photos/2026-03-09%2022.52.58.jpg" alt="웨딩 사진 2" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.03.jpg">
-          <img src="./photos/2026-03-09%2022.53.03.jpg" alt="웨딩 사진 3" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.07.jpg">
-          <img src="./photos/2026-03-09%2022.53.07.jpg" alt="웨딩 사진 4" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.11.jpg">
-          <img src="./photos/2026-03-09%2022.53.11.jpg" alt="웨딩 사진 5" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.14.jpg">
-          <img src="./photos/2026-03-09%2022.53.14.jpg" alt="웨딩 사진 6" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.18.jpg">
-          <img src="./photos/2026-03-09%2022.53.18.jpg" alt="웨딩 사진 7" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.21.jpg">
-          <img src="./photos/2026-03-09%2022.53.21.jpg" alt="웨딩 사진 8" loading="lazy">
-        </button>
-        <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.25.jpg">
-          <img src="./photos/2026-03-09%2022.53.25.jpg" alt="웨딩 사진 9" loading="lazy">
-        </button>
+      <div class="gallery-slider">
+        <div class="gallery-slide">
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.40.jpg">
+            <img src="./photos/2026-03-09%2022.52.40.jpg" alt="웨딩 사진 1" loading="lazy">
+          </button>
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.52.58.jpg">
+            <img src="./photos/2026-03-09%2022.52.58.jpg" alt="웨딩 사진 2" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.03.jpg">
+            <img src="./photos/2026-03-09%2022.53.03.jpg" alt="웨딩 사진 3" loading="lazy">
+          </button>
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.07.jpg">
+            <img src="./photos/2026-03-09%2022.53.07.jpg" alt="웨딩 사진 4" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.11.jpg">
+            <img src="./photos/2026-03-09%2022.53.11.jpg" alt="웨딩 사진 5" loading="lazy">
+          </button>
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.14.jpg">
+            <img src="./photos/2026-03-09%2022.53.14.jpg" alt="웨딩 사진 6" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.21.jpg">
+            <img src="./photos/2026-03-09%2022.53.21.jpg" alt="웨딩 사진 7" loading="lazy">
+          </button>
+          <button type="button" class="thumb" data-full="./photos/2026-03-09%2022.53.25.jpg">
+            <img src="./photos/2026-03-09%2022.53.25.jpg" alt="웨딩 사진 8" loading="lazy">
+          </button>
+        </div>
       </div>
     </section>
 
