@@ -1695,6 +1695,7 @@
 
     document.querySelectorAll(".thumb").forEach((button) => {
       button.addEventListener("click", () => {
+        if (!button.dataset.full) return;
         lightboxImage.src = button.dataset.full;
         lightbox.classList.add("open");
         lightbox.setAttribute("aria-hidden", "false");
